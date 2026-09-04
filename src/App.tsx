@@ -5,6 +5,8 @@ import { useAppDispatch, useAppSelector } from './store/hooks';
 import { clearError, fetchTodos } from './store/todosSlice';
 import './App.css';
 
+const number: string = 10;
+
 function App() {
   const dispatch = useAppDispatch();
   const { error } = useAppSelector((state) => state.todos);
