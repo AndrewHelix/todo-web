@@ -32,4 +32,13 @@ jobs:
         run: npm run test
 
       - name: Build
+        env:
+          VITE_API_URL: http://localhost:3000
         run: npm run build
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            --build-arg VITE_API_URL=http://localhost:3000 \
+            -t course-web:${{ github.sha }} \
+            .
