@@ -106,8 +106,12 @@ describe('TodoItem', () => {
     expect(screen.getByDisplayValue('Buy milk')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Edit' }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Delete' }),
+    ).not.toBeInTheDocument();
   });
 
   it('saves a trimmed title and leaves edit mode', async () => {
@@ -124,8 +128,12 @@ describe('TodoItem', () => {
       id: 'todo-1',
       payload: { title: 'Walk the dog' },
     });
-    expect(await screen.findByRole('button', { name: 'Edit' })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Save' })).not.toBeInTheDocument();
+    expect(
+      await screen.findByRole('button', { name: 'Edit' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Save' }),
+    ).not.toBeInTheDocument();
   });
 
   it('does not save an empty or whitespace-only title', async () => {
@@ -158,7 +166,9 @@ describe('TodoItem', () => {
 
     expect(updateTodo).not.toHaveBeenCalled();
     expect(screen.getByText('Buy milk')).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Save' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Save' }),
+    ).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Edit' }));
     expect(screen.getByDisplayValue('Buy milk')).toBeInTheDocument();
