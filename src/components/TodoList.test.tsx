@@ -45,7 +45,9 @@ describe('TodoList', () => {
 
     renderApp();
 
-    expect(screen.getByText('Loading todos...')).toBeInTheDocument();
+    expect(
+      screen.getByText('A title that is never returned'),
+    ).toBeInTheDocument();
     expect(
       await screen.findByText('CI makes failures visible'),
     ).toBeInTheDocument();
