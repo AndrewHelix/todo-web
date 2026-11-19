@@ -1,10 +1,7 @@
-import type {
-  CreateTodoPayload,
-  Todo,
-  UpdateTodoPayload,
-} from '../types/todo';
+import type { CreateTodoPayload, Todo, UpdateTodoPayload } from '../types/todo';
 
 const API_BASE = import.meta.env.VITE_API_URL ?? '/api';
+if (!API_BASE) throw new Error('VITE_API_URL is required');
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${path}`, {

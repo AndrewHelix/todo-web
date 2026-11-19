@@ -9,7 +9,9 @@ export function TodoList() {
   }
 
   if (items.length === 0) {
-    return <p className="status-message">No todos yet. Add your first task above.</p>;
+    return (
+      <p className="status-message">No todos yet. Add your first task above.</p>
+    );
   }
 
   return (

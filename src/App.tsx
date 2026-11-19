@@ -16,6 +16,8 @@ function App() {
   return (
     <main className="app">
       <header>
+        <h2>something new</h2>
+        <h2>something new</h2>
         <h1>Todo List</h1>
         <p>Manage your tasks with add, edit, and delete actions.</p>
       </header>
