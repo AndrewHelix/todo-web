@@ -29,9 +29,8 @@ export const updateTodo = createAsyncThunk(
     todosApi.update(id, payload),
 );
 
-export const deleteTodo = createAsyncThunk(
-  'todos/deleteTodo',
-  (id: string) => todosApi.remove(id),
+export const deleteTodo = createAsyncThunk('todos/deleteTodo', (id: string) =>
+  todosApi.remove(id),
 );
 
 const todosSlice = createSlice({
@@ -63,7 +62,9 @@ const todosSlice = createSlice({
         state.error = action.error.message ?? 'Failed to create todo';
       })
       .addCase(updateTodo.fulfilled, (state, action) => {
-        const index = state.items.findIndex((todo) => todo.id === action.payload.id);
+        const index = state.items.findIndex(
+          (todo) => todo.id === action.payload.id,
+        );
         if (index !== -1) {
           state.items[index] = action.payload;
         }

@@ -13,7 +13,9 @@ export function TodoItem({ todo }: TodoItemProps) {
   const [title, setTitle] = useState(todo.title);
 
   const handleToggle = () => {
-    dispatch(updateTodo({ id: todo.id, payload: { completed: !todo.completed } }));
+    dispatch(
+      updateTodo({ id: todo.id, payload: { completed: !todo.completed } }),
+    );
   };
 
   const handleDelete = () => {
