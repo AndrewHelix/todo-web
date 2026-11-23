@@ -8,13 +8,18 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   check:
     name: WEB CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -25,11 +30,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check formatting
+        run: npm run format:check
+
       - name: Lint
         run: npm run lint
 
-      - name: Test
-        run: npm run test
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Tests and coverage
+        run: npm run test:ci
+
+      - name: Save test evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-test-evidence-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            reports/
+            coverage/
+          retention-days: 7
+          if-no-files-found: warn
 
       - name: Build
         env:
@@ -42,3 +64,11 @@ jobs:
             --build-arg VITE_API_URL=http://localhost:3000 \
             -t course-web:${{ github.sha }} \
             .
+
+      - name: Save build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-dist-${{ github.sha }}-${{ github.run_attempt }}
+          path: dist/
+          retention-days: 7
+          if-no-files-found: error
